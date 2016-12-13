@@ -14,4 +14,10 @@ $(function() {
 		preferredFormat: "hex",
 	  color: "#f00"
 	});   
+
+	$("#shutDown").click(function(){
+		var color = "000000";
+		console.log(color)
+		$.get('/color/' + color);
+	})
 });
