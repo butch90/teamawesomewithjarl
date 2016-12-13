@@ -5,27 +5,24 @@ var board = new five.Board();
 var rgb;
 var lastColor = "ff0000";
 
+
 function server() {
 	app.use('/', express.static('www'));
 
-	app.get('/color/:id?/:value?', (req, res) => {
-	  var color = req.params.id;
-	  var intens = req.params.value;
-	  /*rgb.color(color);*/
-	  fromOneColorToAnother(lastColor,color);
-	  lastColor = color;
-	  rgb.intensity(intens);
-	  console.log(color);
-	  res.json({ok:true});
-	});
 
-
-	// app.get("/intens/:value?", (req,res) => {
-	// 	var intens = req.params.value;
-	// 	console.log(intens);
-	// 	// rgb.intensity(intens);
-	// 	res.json({ok:true});
-	// });
+	app.get('/color/:id?', (req, res) => {
+		var data = req.params.id;
+		if(data.length > 3) {
+			fromOneColorToAnother(lastColor,data);
+	  	lastColor = data;
+	  	res.json({ok:true});
+	  	return;
+		} else {
+			rgb.intensity(data);
+	  	res.json({status:true});
+	  	return;
+		}
+	})
 
 	app.get('*', (req, res) => {
 	  res.sendFile('/index.html');
