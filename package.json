@@ -1,0 +1,19 @@
+{
+  "name": "johnny-five-io",
+  "version": "0.0.0",
+  "description": "Browser interface for Johnny-Five",
+  "main": "script.js",
+  "dependencies": {
+    "express": "*",
+    "johnny-five": "*",
+    "simple-color-picker-jq": "0.0.11",
+    "socket.io": "~0.9.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Corey Daniels",
+  "license": "BSD"
+}
