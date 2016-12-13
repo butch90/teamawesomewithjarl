@@ -1,11 +1,28 @@
-.center {
+body {
+	background-color: #000;
+}
+
+.title {
 	text-align: center;
-	font-size: 72px;
+	color: white;
 	font-family: verdana;
 }
 
 .text {
 	text-align: center;
-	font-size: 32px;
+	color: white;
 	font-family: verdana;
+	padding-bottom: 20px;
+}
+
+.middle {
+	text-align: center;
+}
+
+.colorbox {
+	padding: 20px;
+	background-color: #333;
+	height: 300px;
+	width: 400px;
+	margin: 100 auto;
 }
