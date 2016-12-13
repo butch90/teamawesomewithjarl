@@ -1,6 +1,7 @@
 $(function() {
   console.log( "ready!" );
 
+  var power;
   $('#custom').change(changeCol);
 
 	function changeCol(){
@@ -19,11 +20,22 @@ $(function() {
 	});
 	}
 
-	$("#custom").spectrum({
-		preferredFormat: "hex",
-	  color: "#f00"
-	});   
-
+	// $("#custom").spectrum({
+	// 	preferredFormat: "hex",
+	//   color: "#f00"
+	// });   
+	$("#on").click(function() {
+		console.log("on");
+		power = true;
+		
+	});
+	$("#off").click(function() {
+		// $("#off").addClass('checked');
+		console.log("off");
+		power = false;
+		}
+		
+	});
 	$("#shutDown").click(function(){
 		var color = "000000";
 		console.log(color)

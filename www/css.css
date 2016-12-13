@@ -53,3 +53,9 @@ body {
     position:absolute;
     top:-20px;
 }
+#on:checked + span {
+	background-color: grey;
+}
+#off:checked + span {
+	background-color: grey;
+}
