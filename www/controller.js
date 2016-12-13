@@ -3,7 +3,6 @@ $(function() {
 	var lastColor = "ff0000";
 	var lastIntens = 100;
 
-<<<<<<< HEAD
 
 		function sendData(arg){
 			$.get('/color/' + arg);
@@ -12,10 +11,8 @@ $(function() {
 
 			
  	 $('#custom').change(changeCol);
-=======
   var power;
   $('#custom').change(changeCol);
->>>>>>> a8409e7ab4facf53dfd9e97685b86419dc18304b
 
 	function changeCol(){
 		
@@ -45,23 +42,22 @@ $(function() {
 
 
 	
-	$("#custom").spectrum({
-		preferredFormat: "hex",
-	  color: "#f00"
-	});   
+	// $("#custom").spectrum({
+	// 	preferredFormat: "hex",
+	//   color: "#f00"
+	// });   
 
  
 	$("#on").click(function() {
 		console.log("on");
 		power = true;
+		$.get('/power/on');
 		
 	});
 	$("#off").click(function() {
 		// $("#off").addClass('checked');
 		console.log("off");
-		power = false;
-		}
-		
+		$.get('/power/off');		
 	});
 	
 
