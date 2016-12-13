@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "*",
     "johnny-five": "*",
+    "nodemon": "*",
     "simple-color-picker-jq": "0.0.11",
     "socket.io": "~0.9.13"
   },

@@ -8,14 +8,24 @@ var lastColor = "ff0000";
 function server() {
 	app.use('/', express.static('www'));
 
-	app.get('/color/:id?', (req, res) => {
+	app.get('/color/:id?/:value?', (req, res) => {
 	  var color = req.params.id;
+	  var intens = req.params.value;
 	  /*rgb.color(color);*/
 	  fromOneColorToAnother(lastColor,color);
 	  lastColor = color;
+	  rgb.intensity(intens);
 	  console.log(color);
 	  res.json({ok:true});
 	});
+
+
+	// app.get("/intens/:value?", (req,res) => {
+	// 	var intens = req.params.value;
+	// 	console.log(intens);
+	// 	// rgb.intensity(intens);
+	// 	res.json({ok:true});
+	// });
 
 	app.get('*', (req, res) => {
 	  res.sendFile('/index.html');
@@ -32,10 +42,13 @@ board.on("ready"	, function() {
 		pins: {
 			red: 5,
 			green: 6,
-			blue: 3
+			blue: 3	
 		},
-		isAnode: true
+		isAnode: true,
+
+
 	});
+	
 	rgb.on();
 	rgb.color(lastColor);
 

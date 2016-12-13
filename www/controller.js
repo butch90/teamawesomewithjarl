@@ -4,10 +4,19 @@ $(function() {
   $('#custom').change(changeCol);
 
 	function changeCol(){
-	  var color = $('#custom').val();
+	 //  var color = $('#custom').val();
+		// color = color.substring(1);
+		// console.log(color);
+		// $.get('/color/' + color);
+		$( "#bar" ).change(function() {
+  	
+  	var color = $('#custom').val();
 		color = color.substring(1);
-		console.log(color);
-		$.get('/color/' + color);
+  	var newValue = $(this).val();
+  	console.log(newValue);
+  	console.log(color);
+  	$.get('/color/' + color + '/' + newValue );
+	});
 	}
 
 	$("#custom").spectrum({
@@ -19,5 +28,9 @@ $(function() {
 		var color = "000000";
 		console.log(color)
 		$.get('/color/' + color);
-	})
+	});
+
+
+
+
 });
