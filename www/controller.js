@@ -45,6 +45,7 @@ $(function() {
 	setInterval(function(){
 		$.get("/lastcolor", (data) => {
 			$(".screen").css("background", "#"+data.color);
+			$(".rainbow").css("color", "#"+data.color);
 			//console.log(data.color);
 		});
 		
@@ -75,7 +76,7 @@ $(function() {
 		$.get('/power/off');
 		/*$(".screen").css("background", lastColor);*/	
 	});
-	
+
 	$("#blink").change(function() {
 		$.get('/power/on/' + $(this).val());		
 	});
