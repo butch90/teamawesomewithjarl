@@ -1,51 +1,57 @@
 $(function() {
-  console.log( "ready!" );
+  	console.log( "ready!" );
 	var lastColor = "ff0000";
 	var lastIntens = 100;
 
+  	var power;
+  	$('#custom').change(changeCol);
+
 	function sendData(arg){
-		$.get('/color/' + arg);
+		$.get('/power/intensity/' + arg);
 		return;
 	}
+	
 
-  var power;
-  $('#custom').change(changeCol);
 
 	function changeCol(){
 		
 		var color = $('#custom').val();
 		lastColor = color;
 		color = color.substring(1);
-		sendData(color);
+		$.get('/color/' + color);
 		console.log(color, "color-change");
+		$(".screen").css("background", lastColor);
   	
 	}
 
-		$( "#bar" ).change(intensity); 
+	$( "#bar" ).change(intensity); 
 	function intensity() {
-  	var newValue = $(this).val();
-  	lastIntens = newValue;
-  	if(!$('#custom').val()){
-  		color = lastColor;
-  		sendData(newValue);  
-  		return;
-  	}
+  		var newValue = $(this).val();
+  		lastIntens = newValue;
+	  	if(!$('#custom').val()){
+	  		color = lastColor;
+	  		sendData(newValue);  
+	  		return;
+	  	}
   	var color = $('#custom').val();
   	console.log(newValue, "newValue");
   	console.log(color);
   	sendData(newValue);
 	
 	}
-	
-	 $("#custom").spectrum({
-	 	preferredFormat: "hex",
-	   color: "#f00"
-	 });   
 
+	$("#custom").spectrum({
+		preferredFormat: "hex",
+	  color: "#f00"
+	});
+
+	$("#rainbow").click(function() {
+		$.get('/rainbow');
+		
+	});   
  
 	$("#on").click(function() {
 		console.log("on");
-		power = true;
 		$.get('/power/on');
 		
 	});
@@ -55,4 +61,5 @@ $(function() {
 		power = false;
 		$.get('/power/off');		
 	});
+
 });
