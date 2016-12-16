@@ -3,16 +3,13 @@ $(function() {
 	var lastColor = "ff0000";
 	var lastIntens = 100;
 
+  	var power;
+  	$('#custom').change(changeCol);
 
 	function sendData(arg){
 		$.get('/power/intensity/' + arg);
 		return;
 	}
-
-			
- 	$('#custom').change(changeCol);
-  	var power;
-  	$('#custom').change(changeCol);
 
 	function changeCol(){
 		
@@ -20,10 +17,11 @@ $(function() {
 		lastColor = color;
 		color = color.substring(1);
 		$.get('/color/' + color);
-		console.log(color, "color-change");
+		//console.log(color, "color-change");
+		$(".screen").css("background", lastColor);
   	
 	}
-
+	
 	$( "#bar" ).change(intensity); 
 	function intensity() {
   		var newValue = $(this).val();
@@ -31,17 +29,24 @@ $(function() {
 	  	if(!$('#custom').val()){
 	  		color = lastColor;
 	  		sendData(newValue);  
+		  	console.log(lastIntens/100);
+		  	$(".screen").css("opacity", lastIntens/100);
 	  		return;
 	  	}
   	var color = $('#custom').val();
   	console.log(newValue, "newValue");
   	console.log(color);
   	sendData(newValue);
-	
 	}
 
+	setInterval(function(){
+		$.get("/lastcolor", (data) => {
+			$(".screen").css("background", "#"+data.color);
+			//console.log(data.color);
+		});
+		
+	}, 100);
 
-	
 	$("#custom").spectrum({
 		preferredFormat: "hex",
 	  color: "#f00"
@@ -56,7 +61,6 @@ $(function() {
 		$.get('/random');
 		
 	});   
-
  
 	$("#on").click(function() {
 		console.log("on");
@@ -66,8 +70,8 @@ $(function() {
 	$("#off").click(function() {
 		// $("#off").addClass('checked');
 		console.log("off");
+		power = false;
 		$.get('/power/off');		
 	});
-	
 
 });

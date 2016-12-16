@@ -34,9 +34,26 @@ function server() {
 		var data = req.params.id;
 		if(data.length > 3) {
 			fromOneColorToAnother(lastColor,data);
-		  	res.json({ok:true});
-		  	return;
-		} 
+	  	lastColor = data;
+	  	res.json({ok:true});
+	  	return;
+		} else {
+			rgb.intensity(data);
+	  	res.json({status:true});
+	  	return;
+		}
+	})
+	app.get('/power/:status', (req, res) => {
+		if(req.params.status === 'on') {
+			rgb.on();
+			console.log('on');
+			res.json('on')
+		}
+		else {
+			rgb.off();
+			console.log('off');
+			res.json('off');
+		}
 	})
 
 	app.get('/rainbow',(req,res)=>{
@@ -76,10 +93,14 @@ function server() {
 
 			rgb.color(b);
 			lastColor = b;
-		}, 1);
+		}, 10);
 
 		res.json({status:true});
 	});
+
+	app.get('/lastcolor', (req, res) => {
+		res.json({color: lastColor});
+	})
 
 	app.get('/random',(req,res)=>{
 		clearInterval(rainbow);
@@ -94,8 +115,9 @@ function server() {
 	});
 
 	app.get('*', (req, res) => {
-		res.sendFile('/index.html');
-	})
+
+	  res.sendFile('/index.html');
+	});
 
 	app.listen(3000, () => {
 	  console.log('Server started at port: 3000');
