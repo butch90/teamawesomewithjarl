@@ -128,4 +128,11 @@ body {
 .butt:active, .butt.active {
 	background-color: #d0d3d6;
 }
+<<<<<<< HEAD
 */
+=======
+
+small {
+  color: white;
+}
+>>>>>>> 28795a229e3c1fbbc2765673d840b0fa0cb4bcfd
