@@ -5,12 +5,12 @@
   -moz-box-sizing: border-box;
 }
 
-h1,h2,h4 {
+h1,h2 {
   font-family: 'Holtwood One SC', serif;
   color:white;
 }
 
-h4 {
+h3,h4 {
   font-family: 'Times New Roman';
   color:white;
 }
@@ -111,7 +111,7 @@ body {
     color-stop(0.9, #ff2), 
     color-stop(1, #f22) 
   );
-  
+
   color:transparent;
   -webkit-background-clip: text;
   background-clip: text;
