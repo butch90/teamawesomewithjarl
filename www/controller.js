@@ -2,8 +2,11 @@ $(function() {
   	console.log( "ready!" );
 	var lastColor = "ff0000";
 	var lastIntens = 100;
+  var power;
 
-  	$('#custom').change(changeCol);
+
+  $('#custom').change(changeCol);
+
 
 	function sendData(arg){
 		$.get('/power/intensity/' + arg);
@@ -18,28 +21,31 @@ $(function() {
 		$.get('/color/' + color);
 		//console.log(color, "color-change");
 		$(".screen").css("background", lastColor);
+
 		$(".rainbow").css("color", lastColor);
   	
 	}
 	
 	$( "#bar" ).change(intensity); 
-		function intensity() {
-	  		var newValue = $(this).val();
-	  		lastIntens = newValue;
-		  	if(!$('#custom').val()){
-		  		color = lastColor;
-		  		sendData(newValue);  
-		  		return;
-		  	}
-		var color = $('#custom').val();
-		console.log(newValue, "newValue");
-		console.log(color);
-		sendData(newValue);
-	};
+	function intensity() {
+  		var newValue = $(this).val();
+  		lastIntens = newValue;
+	  	if(!$('#custom').val()){
+	  		color = lastColor;
+	  		sendData(newValue);  
+		  	$(".screen").css("opacity", lastIntens/100);
+	  		return;
+	  	}
+  	var color = $('#custom').val();
+  	sendData(newValue);
+  	$(".screen").css("opacity", lastIntens/100);
+	}
+
 
 	setInterval(function(){
 		$.get("/lastcolor", (data) => {
 			$(".screen").css("background", "#"+data.color);
+			$(".rainbow").css("color", "#"+data.color);
 			//console.log(data.color);
 		});
 		
@@ -69,8 +75,12 @@ $(function() {
 		
 	});
 	$("#off").click(function() {
-		$.get('/power/off');		
+		// $("#off").addClass('checked');
+		power = false;
+		$.get('/power/off');
+		/*$(".screen").css("background", lastColor);*/	
 	});
+
 	$("#blink").change(function() {
 		$.get('/power/on/' + $(this).val());		
 	});
