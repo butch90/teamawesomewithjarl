@@ -9,7 +9,6 @@ var intensity, power = "on", rainbow;
 function setPower(power) {
 		console.log(power);
 		rgb[power]();
-		
 }
 
 function server() {
@@ -23,6 +22,9 @@ function server() {
 			power = status;
 			res.json(power);
 			setPower(power);
+			if(req.params.amount) {
+				rgb.blink(req.params.amount);
+			}
 		}
 		else {
 	  	res.json({status:true});
@@ -119,7 +121,7 @@ function server() {
 	});
 
 }
-
+server();
 board.on("ready", function() {
 	rgb = new five.Led.RGB({
 		pins: {

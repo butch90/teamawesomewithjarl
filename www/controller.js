@@ -4,7 +4,9 @@ $(function() {
 	var lastIntens = 100;
   var power;
 
+
   $('#custom').change(changeCol);
+
 
 	function sendData(arg){
 		$.get('/power/intensity/' + arg);
@@ -19,6 +21,8 @@ $(function() {
 		$.get('/color/' + color);
 		//console.log(color, "color-change");
 		$(".screen").css("background", lastColor);
+
+		$(".rainbow").css("color", lastColor);
   	
 	}
 	
@@ -36,6 +40,7 @@ $(function() {
   	sendData(newValue);
   	$(".screen").css("opacity", lastIntens/100);
 	}
+
 
 	setInterval(function(){
 		$.get("/lastcolor", (data) => {
@@ -70,5 +75,8 @@ $(function() {
 		$.get('/power/off');
 		/*$(".screen").css("background", lastColor);*/	
 	});
-
+	
+	$("#blink").change(function() {
+		$.get('/power/on/' + $(this).val());		
+	});
 });
