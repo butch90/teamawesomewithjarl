@@ -93,10 +93,14 @@ function server() {
 
 			rgb.color(b);
 			lastColor = b;
-		}, 1);
+		}, 10);
 
 		res.json({status:true});
 	});
+
+	app.get('/lastcolor', (req, res) => {
+		res.json({color: lastColor});
+	})
 
 	app.get('/random',(req,res)=>{
 		clearInterval(rainbow);

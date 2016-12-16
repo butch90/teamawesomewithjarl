@@ -10,8 +10,6 @@ $(function() {
 		$.get('/power/intensity/' + arg);
 		return;
 	}
-	
-
 
 	function changeCol(){
 		
@@ -19,11 +17,11 @@ $(function() {
 		lastColor = color;
 		color = color.substring(1);
 		$.get('/color/' + color);
-		console.log(color, "color-change");
+		//console.log(color, "color-change");
 		$(".screen").css("background", lastColor);
   	
 	}
-
+	
 	$( "#bar" ).change(intensity); 
 	function intensity() {
   		var newValue = $(this).val();
@@ -31,14 +29,23 @@ $(function() {
 	  	if(!$('#custom').val()){
 	  		color = lastColor;
 	  		sendData(newValue);  
+		  	console.log(lastIntens/100);
+		  	$(".screen").css("opacity", lastIntens/100);
 	  		return;
 	  	}
   	var color = $('#custom').val();
   	console.log(newValue, "newValue");
   	console.log(color);
   	sendData(newValue);
-	
 	}
+
+	setInterval(function(){
+		$.get("/lastcolor", (data) => {
+			$(".screen").css("background", "#"+data.color);
+			//console.log(data.color);
+		});
+		
+	}, 100);
 
 	$("#custom").spectrum({
 		preferredFormat: "hex",
