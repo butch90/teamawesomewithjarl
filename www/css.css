@@ -29,6 +29,16 @@ body {
   border-radius:10px 10px 0 0;
 }
 
+.intensity{
+  width: 150px;
+  margin: 0 auto;
+}
+
+.blink{
+  width: 150px;
+  margin: 0 auto;
+}
+
 .body {
   width: 720px;
   height: 20px;
@@ -52,9 +62,7 @@ body {
 	text-align: center;
 }
 
-#rainbow {
-	overflow: auto;
-}
+
 
 .toggle {
     margin:4px;
@@ -93,7 +101,8 @@ body {
 	color: white;
 }
 
-.rainbow {
+
+/*.rainbow {
 	color: #fff;
 }
 
@@ -119,3 +128,4 @@ body {
 .butt:active, .butt.active {
 	background-color: #d0d3d6;
 }
+*/

@@ -26,20 +26,20 @@ $(function() {
   	
 	}
 	
-	$( "#bar" ).change(intensity); 
-	function intensity() {
-  		var newValue = $(this).val();
-  		lastIntens = newValue;
-	  	if(!$('#custom').val()){
-	  		color = lastColor;
-	  		sendData(newValue);  
-		  	$(".screen").css("opacity", lastIntens/100);
-	  		return;
-	  	}
-  	var color = $('#custom').val();
-  	sendData(newValue);
-  	$(".screen").css("opacity", lastIntens/100);
-	}
+	// $( "#bar" ).change(intensity); 
+	// function intensityintensity() {
+ //  		var newValue = $(this).val();
+ //  		lastIntens = newValue;
+	//   	if(!$('#custom').val()){
+	//   		color = lastColor;
+	//   		sendData(newValue);  
+	// 	  	$(".screen").css("opacity", lastIntens/100);
+	//   		return;
+	//   	}
+ //  	var color = $('#custom').val();
+ //  	sendData(newValue);
+ //  	$(".screen").css("opacity", lastIntens/100);
+	// }
 
 
 	setInterval(function(){
@@ -52,8 +52,31 @@ $(function() {
 	}, 100);
 
 
-	
+	$(".intensity").slider({
+		range: "min",
+      value: 100,
+      min: 10,
+      max: 100,
+      slide: function( event, ui ) {
+        console.log(ui.value);
+        sendData(ui.value);
+        $(".screen").css("opacity", ui.value/100);
+      }
+    });
 
+
+		$(".blink").slider({
+		range: "min",
+      value: 0,
+      min: 0,
+      max: 1000,
+      slide: function( event, ui ) {
+        console.log(ui.value);
+      }
+    });
+
+	$("button#rainbow").button();
+	$("button#random").button();
 
 	$("#custom").spectrum({
 		preferredFormat: "hex",
