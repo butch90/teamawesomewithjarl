@@ -83,11 +83,11 @@ body {
     top:-20px;
 }
 #on:checked + span {
-	background-color: #555;
+	background-color: #006902;
 	color: white;
 }
 #off:checked + span {
-	background-color: #555;
+	background-color: #690000;
 	color: white;
 }
 
