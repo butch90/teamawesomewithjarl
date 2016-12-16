@@ -37,20 +37,22 @@ $(function() {
 	
 	}
 	
-	$("#custom").spectrum({
-		preferredFormat: "hex",
-	  color: "#f00"
-	});   
+	 $("#custom").spectrum({
+	 	preferredFormat: "hex",
+	   color: "#f00"
+	 });   
 
  
 	$("#on").click(function() {
 		console.log("on");
 		power = true;
+		$.get('/power/on');
 		
 	});
 	$("#off").click(function() {
 		// $("#off").addClass('checked');
 		console.log("off");
 		power = false;
+		$.get('/power/off');		
 	});
 });

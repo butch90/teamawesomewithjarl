@@ -22,7 +22,18 @@ function server() {
 	  	return;
 		}
 	})
-
+	app.get('/power/:status', (req, res) => {
+		if(req.params.status === 'on') {
+			rgb.on();
+			console.log('on');
+			res.json('on')
+		}
+		else {
+			rgb.off();
+			console.log('off');
+			res.json('off');
+		}
+	})
 	app.get('*', (req, res) => {
 	  res.sendFile('/index.html');
 	});
