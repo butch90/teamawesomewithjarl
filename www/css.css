@@ -83,10 +83,12 @@ body {
     top:-20px;
 }
 #on:checked + span {
-	background-color: grey;
+	background-color: #555;
+	color: white;
 }
 #off:checked + span {
-	background-color: grey;
+	background-color: #555;
+	color: white;
 }
 
 .rainbow {
