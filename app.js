@@ -121,7 +121,7 @@ function server() {
 	});
 
 }
-server();
+
 board.on("ready", function() {
 	rgb = new five.Led.RGB({
 		pins: {
