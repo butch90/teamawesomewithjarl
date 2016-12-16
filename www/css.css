@@ -82,10 +82,12 @@ body {
     position:absolute;
     top:-20px;
 }
+
 #on:checked + span {
 	background-color: #006902;
 	color: white;
 }
+
 #off:checked + span {
 	background-color: #690000;
 	color: white;
@@ -101,10 +103,10 @@ body {
 
 .butt {
 	padding: 6px;
-    background-color:#EFEFEF;
-    border-radius:0;
-    border:0;
-    overflow:auto;
+  background-color:#EFEFEF;
+  border-radius:0;
+  border:0;
+  overflow:auto;
 	display:inline-block;
 	text-align: center;
 }
@@ -116,6 +118,4 @@ body {
 
 .butt:active, .butt.active {
 	background-color: #d0d3d6;
-	background-image: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0));
-	box-shadow: inset 0 0 2px rgba(0,0,0,.2), inset 0 2px 5px rgba(0,0,0,.2), 0 1px rgba(255,255,255,.2);
 }
