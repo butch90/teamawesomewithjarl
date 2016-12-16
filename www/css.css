@@ -119,3 +119,7 @@ body {
 .butt:active, .butt.active {
 	background-color: #d0d3d6;
 }
+
+small {
+  color: white;
+}
