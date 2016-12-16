@@ -5,11 +5,14 @@
   -moz-box-sizing: border-box;
 }
 
-h1,h2 {
+h1,h2,h4 {
   font-family: 'Holtwood One SC', serif;
   color:white;
-  text-shadow: 3px 3px 0px #262626;
+}
 
+h4 {
+  font-family: 'Times New Roman';
+  color:white;
 }
 
 body {
