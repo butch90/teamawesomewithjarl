@@ -128,23 +128,23 @@ function server() {
 
 }
 server();
-board.on("ready", function() {
-	rgb = new five.Led.RGB({
-		pins: {
-			red: 5,
-			green: 6,
-			blue: 3	
-		},
-		isAnode: true,
+// board.on("ready", function() {
+// 	rgb = new five.Led.RGB({
+// 		pins: {
+// 			red: 5,
+// 			green: 6,
+// 			blue: 3	
+// 		},
+// 		isAnode: true,
 
 
-	});
+// 	});
 	
-	rgb.on();
-	rgb.color(lastColor);
+// 	rgb.on();
+// 	rgb.color(lastColor);
 
-	server();
-});
+// 	// server();
+// });
 
 function fromOneColorToAnother(hex1,hex2){
 

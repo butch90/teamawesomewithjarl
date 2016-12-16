@@ -45,6 +45,10 @@ $(function() {
 		
 	}, 100);
 
+
+	$("#test-slider").slider({});
+
+
 	$("#custom").spectrum({
 		preferredFormat: "hex",
 	  color: "#f00"
