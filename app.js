@@ -1,12 +1,13 @@
 var express = require('express');
 var app = express();
-// var five = require('johnny-five');
-// var board = new five.Board();
+var five = require('johnny-five');
+var board = new five.Board();
 var rgb;
-var lastColor = "ff0000";
+var lastColor = "ff0000",
+	rainbow, power;
 
 function setPower(action) {
-
+	clearInterval(rainbow);
 	if(action === 'on') {
 		rgb.on();
 		power = 'on';
@@ -17,10 +18,12 @@ function setPower(action) {
 		power = 'off';
 	}
 }
+
 function server() {
-	app.use('/', express.static('www'));
+	app.use(express.static('www'));
 
 	app.get('/power/:status', (req, res) => {
+
 		if(req.params.status === 'on') {
 			res.json('on');
 			setPower('on');
@@ -32,6 +35,7 @@ function server() {
 	})
 	
 	app.get('/color/:id?', (req, res) => {
+		clearInterval(rainbow);
 		var data = req.params.id;
 		if(data.length > 3) {
 			fromOneColorToAnother(lastColor,data);
@@ -48,8 +52,50 @@ function server() {
 	  	return;
 		}
 	})
+
+	app.get('/rainbow',(req,res)=>{
+		var red = 255, green = 0, blue = 0,
+			s = 0;
+		clearInterval(rainbow);
+		rainbow = setInterval(function() {
+
+			switch(s) {
+			case 0:
+				red -= 1
+				green += 1
+				if (red == 0) {s = 1}
+				break;
+			case 1:
+				green -= 1
+				blue += 1
+				if (green == 0) {s = 2}
+				break;
+			case 2:
+				blue -= 1
+				red += 1
+				if (blue == 0) {s = 0}
+				break;
+			}
+
+			var a = red + "," + green + "," + blue;
+
+			a = a.split(",");
+
+			var b = a.map(function(x){
+				x = parseInt(x).toString(16);
+				return (x.length==1) ? "0"+x : x;
+			})
+
+			b = ""+b.join("");
+
+			rgb.color(b);
+		}, 1);
+
+		res.json({status:true});
+	});
+
 	app.get('*', (req, res) => {
-	  res.sendFile('/index.html');
+		res.sendFile('/index.html');
 	})
 
 	app.listen(3000, () => {
@@ -57,7 +103,6 @@ function server() {
 	});
 
 }
-server();
 
 board.on("ready", function() {
 	rgb = new five.Led.RGB({

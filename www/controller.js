@@ -45,6 +45,11 @@ $(function() {
 	$("#custom").spectrum({
 		preferredFormat: "hex",
 	  color: "#f00"
+	});
+
+	$("#rainbow").click(function() {
+		$.get('/rainbow');
+		
 	});   
 
  
