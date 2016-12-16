@@ -5,11 +5,32 @@ var app = express();
 var rgb;
 var lastColor = "ff0000";
 
+function setPower(action) {
 
+	if(action === 'on') {
+		rgb.on();
+		power = 'on';
+
+	}
+	else if(action === 'off') {
+		rgb.off();
+		power = 'off';
+	}
+}
 function server() {
 	app.use('/', express.static('www'));
 
-
+	app.get('/power/:status', (req, res) => {
+		if(req.params.status === 'on') {
+			res.json('on');
+			setPower('on');
+		}
+		else {
+			res.json('off');
+			setPower('off');
+		}
+	})
+	
 	app.get('/color/:id?', (req, res) => {
 		var data = req.params.id;
 		if(data.length > 3) {
@@ -18,21 +39,13 @@ function server() {
 	  	res.json({ok:true});
 	  	return;
 		} else {
-			rgb.intensity(data);
-	  	res.json({status:true});
+
+			if(power === 'on') {
+
+				rgb.intensity(data);
+			}
+	  		res.json({status:true});
 	  	return;
-		}
-	})
-	app.get('/power/:status', (req, res) => {
-		if(req.params.status === 'on') {
-			// led.on();
-			console.log('on');
-			res.json('on')
-		}
-		else {
-			// led.off();
-			console.log('off');
-			res.json('off');
 		}
 	})
 	app.get('*', (req, res) => {
@@ -45,48 +58,48 @@ function server() {
 
 }
 server();
-// // 
-// board.on("ready"	, function() {
-// 	rgb = new five.Led.RGB({
-// 		pins: {
-// 			red: 5,
-// 			green: 6,
-// 			blue: 3	
-// 		},
-// 		isAnode: true,
+
+board.on("ready", function() {
+	rgb = new five.Led.RGB({
+		pins: {
+			red: 5,
+			green: 6,
+			blue: 3	
+		},
+		isAnode: true,
 
 
-// 	});
+	});
 	
-// 	rgb.on();
-// 	rgb.color(lastColor);
+	rgb.on();
+	rgb.color(lastColor);
 
-// 	server()
-// });
+	server()
+});
 
-// function fromOneColorToAnother(hex1,hex2){
+function fromOneColorToAnother(hex1,hex2){
 
-// 	var col1 = hexToRgb("#" + hex1);
-// 	var col2 = hexToRgb("#" + hex2);
-// 	var rDiff = col2.r - col1.r;
-// 	var gDiff = col2.g - col1.g;
-// 	var bDiff = col2.b - col1.b;
-// 	var r = col1.r, g = col1.g, b =col1.b;
-// 	var arr = [];
-// 	for(var i = 0; i < 29; i++){
-// 		r += rDiff/30;
-// 		g += gDiff/30;
-// 		b += bDiff/30;
-// 		arr.push(rgbToHex(r,g,b).substring(1));
-// 	}
-// 	arr.push(hex2);
-// 	var theInterval = setInterval(function(){
-// 		rgb.color(arr.shift());
-// 		if(arr.length === 0){
-// 			clearInterval(theInterval);
-// 		}
-// 	},50);
-// }
+	var col1 = hexToRgb("#" + hex1);
+	var col2 = hexToRgb("#" + hex2);
+	var rDiff = col2.r - col1.r;
+	var gDiff = col2.g - col1.g;
+	var bDiff = col2.b - col1.b;
+	var r = col1.r, g = col1.g, b =col1.b;
+	var arr = [];
+	for(var i = 0; i < 29; i++){
+		r += rDiff/30;
+		g += gDiff/30;
+		b += bDiff/30;
+		arr.push(rgbToHex(r,g,b).substring(1));
+	}
+	arr.push(hex2);
+	var theInterval = setInterval(function(){
+		rgb.color(arr.shift());
+		if(arr.length === 0){
+			clearInterval(theInterval);
+		}
+	},50);
+}
 
 function rgbToHex(r, g, b) {
 	  r = Math.floor(r);

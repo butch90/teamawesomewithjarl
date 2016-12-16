@@ -1,18 +1,18 @@
 $(function() {
-  console.log( "ready!" );
+  	console.log( "ready!" );
 	var lastColor = "ff0000";
 	var lastIntens = 100;
 
 
-		function sendData(arg){
-			$.get('/color/' + arg);
-			return;
-		}
+	function sendData(arg){
+		$.get('/color/' + arg);
+		return;
+	}
 
 			
- 	 $('#custom').change(changeCol);
-  var power;
-  $('#custom').change(changeCol);
+ 	$('#custom').change(changeCol);
+  	var power;
+  	$('#custom').change(changeCol);
 
 	function changeCol(){
 		
@@ -24,15 +24,15 @@ $(function() {
   	
 	}
 
-		$( "#bar" ).change(intensity); 
+	$( "#bar" ).change(intensity); 
 	function intensity() {
-  	var newValue = $(this).val();
-  	lastIntens = newValue;
-  	if(!$('#custom').val()){
-  		color = lastColor;
-  		sendData(newValue);  
-  		return;
-  	}
+  		var newValue = $(this).val();
+  		lastIntens = newValue;
+	  	if(!$('#custom').val()){
+	  		color = lastColor;
+	  		sendData(newValue);  
+	  		return;
+	  	}
   	var color = $('#custom').val();
   	console.log(newValue, "newValue");
   	console.log(color);
@@ -42,10 +42,10 @@ $(function() {
 
 
 	
-	// $("#custom").spectrum({
-	// 	preferredFormat: "hex",
-	//   color: "#f00"
-	// });   
+	$("#custom").spectrum({
+		preferredFormat: "hex",
+	  color: "#f00"
+	});   
 
  
 	$("#on").click(function() {
