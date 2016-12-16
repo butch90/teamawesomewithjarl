@@ -4,29 +4,56 @@ var five = require('johnny-five');
 var board = new five.Board();
 var rgb;
 var lastColor = "ff0000";
+var intensity;
+var power;
+function setPower(power) {
 
+	if(power === 'off') {
+		rgb[power]();
+	}
+	else if (power === 'intensity'){
+		rgb.intensity(intensity);
+	}
+	else {
+		
+		rgb[power]();
+	}
+}
 function server() {
 	app.use('/', express.static('www'));
 
-	app.get('/color/:id?/:value?', (req, res) => {
-	  var color = req.params.id;
-	  var intens = req.params.value;
-	  /*rgb.color(color);*/
-	  fromOneColorToAnother(lastColor,color);
-	  lastColor = color;
-	  rgb.intensity(intens);
-	  console.log(color);
-	  res.json({ok:true});
-	});
+	app.get('/power/:status', (req, res) => {
+		 var power = req.params.status;
+		if(req.params.status === 'on') {
+			res.json('on');
+			power = 'on';
+			setPower(power);
+		}
+		else {
+			res.json('off');
+			power = 'off';
+			setPower(power);
 
+		}
+	})
+	
+	app.get('/color/:id?', (req, res) => {
+		var data = req.params.id;
+		if(data.length > 3) {
+			fromOneColorToAnother(lastColor,data);
+	  	lastColor = data;
+	  	res.json({ok:true});
+	  	return;
+		} else {
 
-	// app.get("/intens/:value?", (req,res) => {
-	// 	var intens = req.params.value;
-	// 	console.log(intens);
-	// 	// rgb.intensity(intens);
-	// 	res.json({ok:true});
-	// });
-
+			intensity = data;
+			if(power === 'on') {
+				setPower('intensity');
+			}
+	  		res.json({status:true});
+	  	return;
+		}
+	})
 	app.get('*', (req, res) => {
 	  res.sendFile('/index.html');
 	})
@@ -37,7 +64,7 @@ function server() {
 
 }
 
-board.on("ready"	, function() {
+board.on("ready", function() {
 	rgb = new five.Led.RGB({
 		pins: {
 			red: 5,
@@ -52,7 +79,7 @@ board.on("ready"	, function() {
 	rgb.on();
 	rgb.color(lastColor);
 
-	server()
+	server();
 });
 
 function fromOneColorToAnother(hex1,hex2){
