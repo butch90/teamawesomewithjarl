@@ -4,61 +4,87 @@ var five = require('johnny-five');
 var board = new five.Board();
 var rgb;
 var lastColor = "ff0000";
-var intensity;
-var power;
+var intensity, power, rainbow;
+
 function setPower(power) {
-
-	if(power === 'off') {
-		rgb[power]();
-	}
-	else if (power === 'intensity'){
-		rgb.intensity(intensity);
-	}
-	else if(power === 'intervall') {
-		rgb.blink(500);
-	}
-	else {
-		
-		rgb[power]();
-	}
+	rgb[power]();
 }
-function server() {
-	app.use('/', express.static('www'));
 
-	app.get('/power/:status/', (req, res) => {
-		 var power = req.params.status;
-		if(req.params.status === 'on') {
-			res.json('on');
-			power = 'on';
+function server() {
+	app.use(express.static('www'));
+
+	app.get('/power/:status/:amount?', (req, res) => {
+		 var status = req.params.status;
+		 console.log(status);
+		if(req.params.status === 'on' || req.params.status === 'off') {
+			clearInterval(rainbow);
+			power = status;
+			res.json(power);
 			setPower(power);
+			if(req.params.amount) {
+				rgb.blink(req.params.amount);
+			}
 		}
 		else {
-			res.json('off');
-			power = 'off';
+	  		res.json({status:true});
+			rgb[status](req.params.amount);
 			setPower(power);
-
 		}
 	})
 	
 	app.get('/color/:id?', (req, res) => {
+		clearInterval(rainbow);
 		var data = req.params.id;
 		if(data.length > 3) {
 			fromOneColorToAnother(lastColor,data);
-	  	lastColor = data;
-	  	res.json({ok:true});
-	  	return;
-		} else {
-
-			intensity = data;
-			if(power === 'on') {
-				setPower('intensity');
-			}
-	  		res.json({status:true});
-	  	return;
-		}
+		  	res.json({ok:true});
+		  	return;
+		} 
 	})
+
+	app.get('/rainbow',(req,res)=>{
+		var red = 255, green = 0, blue = 0,
+			s = 0;
+		clearInterval(rainbow);
+		rainbow = setInterval(function() {
+
+			switch(s) {
+			case 0:
+				red -= 1
+				green += 1
+				if (red == 0) {s = 1}
+				break;
+			case 1:
+				green -= 1
+				blue += 1
+				if (green == 0) {s = 2}
+				break;
+			case 2:
+				blue -= 1
+				red += 1
+				if (blue == 0) {s = 0}
+				break;
+			}
+
+			var a = red + "," + green + "," + blue;
+
+			a = a.split(",");
+
+			var b = a.map(function(x){
+				x = parseInt(x).toString(16);
+				return (x.length==1) ? "0"+x : x;
+			})
+
+			b = ""+b.join("");
+
+			rgb.color(b);
+		}, 1);
+
+		res.json({status:true});
+	});
+
 	app.get('*', (req, res) => {
-	  res.sendFile('/index.html');
+		res.sendFile('/index.html');
 	})
 
 	app.listen(3000, () => {
@@ -66,7 +92,7 @@ function server() {
 	});
 
 }
-
+server();
 board.on("ready", function() {
 	rgb = new five.Led.RGB({
 		pins: {
@@ -104,6 +130,7 @@ function fromOneColorToAnother(hex1,hex2){
 	var theInterval = setInterval(function(){
 		rgb.color(arr.shift());
 		if(arr.length === 0){
+		  	lastColor = hex2;
 			clearInterval(theInterval);
 		}
 	},50);

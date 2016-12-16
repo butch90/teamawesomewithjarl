@@ -5,7 +5,7 @@ $(function() {
 
 
 	function sendData(arg){
-		$.get('/color/' + arg);
+		$.get('/power/intensity/' + arg);
 		return;
 	}
 
@@ -19,24 +19,24 @@ $(function() {
 		var color = $('#custom').val();
 		lastColor = color;
 		color = color.substring(1);
-		sendData(color);
+		$.get('/color/' + color);
 		console.log(color, "color-change");
   	
 	}
 
 	$( "#bar" ).change(intensity); 
-	function intensity() {
-  		var newValue = $(this).val();
-  		lastIntens = newValue;
-	  	if(!$('#custom').val()){
-	  		color = lastColor;
-	  		sendData(newValue);  
-	  		return;
-	  	}
-  	var color = $('#custom').val();
-  	console.log(newValue, "newValue");
-  	console.log(color);
-  	sendData(newValue);
+		function intensity() {
+	  		var newValue = $(this).val();
+	  		lastIntens = newValue;
+		  	if(!$('#custom').val()){
+		  		color = lastColor;
+		  		sendData(newValue);  
+		  		return;
+		  	}
+		var color = $('#custom').val();
+		console.log(newValue, "newValue");
+		console.log(color);
+		sendData(newValue);
 	
 	}
 
@@ -45,6 +45,11 @@ $(function() {
 	$("#custom").spectrum({
 		preferredFormat: "hex",
 	  color: "#f00"
+	});
+
+	$("#rainbow").click(function() {
+		$.get('/rainbow');
+		
 	});   
 
  
@@ -58,6 +63,10 @@ $(function() {
 		console.log("off");
 		$.get('/power/off');		
 	});
-	
+	$("#blink").change(function() {
+		// $("#off").addClass('checked');
+		$.get('/power/on/' + $(this).val());		
+	});
+
 
 });
