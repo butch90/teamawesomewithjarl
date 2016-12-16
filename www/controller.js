@@ -52,7 +52,7 @@ $(function() {
 	}, 100);
 
 
-	$("#test-slider").slider({});
+	
 
 
 	$("#custom").spectrum({
