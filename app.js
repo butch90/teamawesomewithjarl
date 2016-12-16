@@ -37,9 +37,26 @@ function server() {
 		var data = req.params.id;
 		if(data.length > 3) {
 			fromOneColorToAnother(lastColor,data);
-		  	res.json({ok:true});
-		  	return;
-		} 
+	  	lastColor = data;
+	  	res.json({ok:true});
+	  	return;
+		} else {
+			rgb.intensity(data);
+	  	res.json({status:true});
+	  	return;
+		}
+	})
+	app.get('/power/:status', (req, res) => {
+		if(req.params.status === 'on') {
+			rgb.on();
+			console.log('on');
+			res.json('on')
+		}
+		else {
+			rgb.off();
+			console.log('off');
+			res.json('off');
+		}
 	})
 
 	app.get('/rainbow',(req,res)=>{
@@ -78,14 +95,32 @@ function server() {
 			b = ""+b.join("");
 
 			rgb.color(b);
-		}, 1);
+			lastColor = b;
+		}, 10);
 
 		res.json({status:true});
 	});
 
-	app.get('*', (req, res) => {
-		res.sendFile('/index.html');
+	app.get('/lastcolor', (req, res) => {
+		res.json({color: lastColor});
 	})
+
+	app.get('/random',(req,res)=>{
+		clearInterval(rainbow);
+		var letters = '0123456789ABCDEF';
+		var color = "";
+		for (var i = 0; i < 6; i++ ) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		console.log(color);
+      	fromOneColorToAnother(lastColor,color);
+		res.json({status:true});
+	});
+
+	app.get('*', (req, res) => {
+
+	  res.sendFile('/index.html');
+	});
 
 	app.listen(3000, () => {
 	  console.log('Server started at port: 3000');

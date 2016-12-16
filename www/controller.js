@@ -3,16 +3,12 @@ $(function() {
 	var lastColor = "ff0000";
 	var lastIntens = 100;
 
+  	$('#custom').change(changeCol);
 
 	function sendData(arg){
 		$.get('/power/intensity/' + arg);
 		return;
 	}
-
-			
- 	$('#custom').change(changeCol);
-  	var power;
-  	$('#custom').change(changeCol);
 
 	function changeCol(){
 		
@@ -20,10 +16,12 @@ $(function() {
 		lastColor = color;
 		color = color.substring(1);
 		$.get('/color/' + color);
-		console.log(color, "color-change");
+		//console.log(color, "color-change");
+		$(".screen").css("background", lastColor);
+		$(".rainbow").css("color", lastColor);
   	
 	}
-
+	
 	$( "#bar" ).change(intensity); 
 		function intensity() {
 	  		var newValue = $(this).val();
@@ -37,11 +35,16 @@ $(function() {
 		console.log(newValue, "newValue");
 		console.log(color);
 		sendData(newValue);
-	
-	}
+	};
 
+	setInterval(function(){
+		$.get("/lastcolor", (data) => {
+			$(".screen").css("background", "#"+data.color);
+			//console.log(data.color);
+		});
+		
+	}, 100);
 
-	
 	$("#custom").spectrum({
 		preferredFormat: "hex",
 	  color: "#f00"
@@ -50,23 +53,21 @@ $(function() {
 	$("#rainbow").click(function() {
 		$.get('/rainbow');
 		
-	});   
+	});
 
+	$("#random").click(function() {
+		$.get('/random');
+		
+	});   
  
 	$("#on").click(function() {
-		console.log("on");
 		$.get('/power/on');
 		
 	});
 	$("#off").click(function() {
-		// $("#off").addClass('checked');
-		console.log("off");
 		$.get('/power/off');		
 	});
 	$("#blink").change(function() {
-		// $("#off").addClass('checked');
 		$.get('/power/on/' + $(this).val());		
 	});
-
-
 });

@@ -1,8 +1,8 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script type="text/javascript" src="controller.js"></script>
 	<script type="text/javascript" src="spectrum.js"></script>
+	<script type="text/javascript" src="controller.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css.css">
 	<link rel="stylesheet" type="text/css" href="spectrum.css">
@@ -10,12 +10,12 @@
 <body>
 <br><br>
 <h1><center>Team Awesome</center></h1>
-<h2><center>Color Picker</center></h2>
+<h2 class="rainbow"><center>Color Picker</center></h2>
 <br>
 <div class="laptop">
 	<div class="screen">
-		<br><br><br>
 		<div class="middle">
+<<<<<<< HEAD
 
 			<input type='text' id="custom" /><br><br>
 	 		<input type="range"  min="10" max="100" id="bar" /><br><br>
@@ -24,19 +24,28 @@
 			<!-- <input id="blink" checked type="button" value="BLINK"><br><br> -->
 			<input type="range" value="0" min="0" max="1000" id="blink" /><br><br>
 
+=======
+			<h3><center>SETTINGS</center></h3>
+>>>>>>> 3e0a009de7f8afecf972067b1648444f3b127e9d
 			<div class="toggle">
 				<label><input id="on" checked type="radio" name="toggle"><span>ON</span></label>    
 			</div>
 			<div class="toggle">
 				<label><input id="off" type="radio" name="toggle"><span>OFF</span></label>
 			</div>
-
+			<br><br>
+			<input type='text' id="custom" />
+			<br><br>
+	 		<input type="range"  min="10" max="100" id="bar" />
+	 		<br><br>
+			<input id="rainbow" checked type="button" value="RAINBOW">
+			<input id="random" checked type="button" value="RANDOM">
 		</div>
+
 	</div>
-<div class="body">
+	<div class="body"></div>
 </div>
-</div>
-
-
+<br>
+<h4><center>By: Marcus, Olle, Jarl, Andreas &amp; Alex</center></h4>
 </body>
 </html>

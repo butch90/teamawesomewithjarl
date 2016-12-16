@@ -8,12 +8,15 @@
 h1,h2 {
   font-family: 'Holtwood One SC', serif;
   color:white;
-  text-shadow: 3px 3px 0px #262626;
+}
 
+h3,h4 {
+  color:white;
 }
 
 body {
   background: #111;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .screen {
@@ -80,8 +83,14 @@ body {
     top:-20px;
 }
 #on:checked + span {
-	background-color: grey;
+	background-color: #555;
+	color: white;
 }
 #off:checked + span {
-	background-color: grey;
+	background-color: #555;
+	color: white;
+}
+
+.rainbow {
+	color: #fff;
 }
