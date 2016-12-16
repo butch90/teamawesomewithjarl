@@ -14,6 +14,9 @@ function setPower(power) {
 	else if (power === 'intensity'){
 		rgb.intensity(intensity);
 	}
+	else if(power === 'intervall') {
+		rgb.blink(500);
+	}
 	else {
 		
 		rgb[power]();
@@ -22,7 +25,7 @@ function setPower(power) {
 function server() {
 	app.use('/', express.static('www'));
 
-	app.get('/power/:status', (req, res) => {
+	app.get('/power/:status/', (req, res) => {
 		 var power = req.params.status;
 		if(req.params.status === 'on') {
 			res.json('on');
