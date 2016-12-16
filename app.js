@@ -3,34 +3,29 @@ var app = express();
 var five = require('johnny-five');
 var board = new five.Board();
 var rgb;
-var lastColor = "ff0000",
-	rainbow, power;
+var lastColor = "ff0000";
+var intensity, power, rainbow;
 
-function setPower(action) {
-	clearInterval(rainbow);
-	if(action === 'on') {
-		rgb.on();
-		power = 'on';
-
-	}
-	else if(action === 'off') {
-		rgb.off();
-		power = 'off';
-	}
+function setPower(power) {
+		rgb[power]();
 }
 
 function server() {
 	app.use(express.static('www'));
 
-	app.get('/power/:status', (req, res) => {
-
-		if(req.params.status === 'on') {
-			res.json('on');
-			setPower('on');
+	app.get('/power/:status/:amount?', (req, res) => {
+		 var status = req.params.status;
+		 console.log(status);
+		if(req.params.status === 'on' || req.params.status === 'off') {
+			clearInterval(rainbow);
+			power = status;
+			res.json(power);
+			setPower(power);
 		}
 		else {
-			res.json('off');
-			setPower('off');
+	  		res.json({status:true});
+			rgb[status](req.params.amount);
+			setPower(power);
 		}
 	})
 	
@@ -39,18 +34,9 @@ function server() {
 		var data = req.params.id;
 		if(data.length > 3) {
 			fromOneColorToAnother(lastColor,data);
-	  	lastColor = data;
-	  	res.json({ok:true});
-	  	return;
-		} else {
-
-			if(power === 'on') {
-
-				rgb.intensity(data);
-			}
-	  		res.json({status:true});
-	  	return;
-		}
+		  	res.json({ok:true});
+		  	return;
+		} 
 	})
 
 	app.get('/rainbow',(req,res)=>{
@@ -119,7 +105,7 @@ board.on("ready", function() {
 	rgb.on();
 	rgb.color(lastColor);
 
-	server()
+	server();
 });
 
 function fromOneColorToAnother(hex1,hex2){
@@ -141,6 +127,7 @@ function fromOneColorToAnother(hex1,hex2){
 	var theInterval = setInterval(function(){
 		rgb.color(arr.shift());
 		if(arr.length === 0){
+		  	lastColor = hex2;
 			clearInterval(theInterval);
 		}
 	},50);

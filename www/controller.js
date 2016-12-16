@@ -5,7 +5,7 @@ $(function() {
 
 
 	function sendData(arg){
-		$.get('/color/' + arg);
+		$.get('/power/intensity/' + arg);
 		return;
 	}
 
@@ -19,7 +19,7 @@ $(function() {
 		var color = $('#custom').val();
 		lastColor = color;
 		color = color.substring(1);
-		sendData(color);
+		$.get('/color/' + color);
 		console.log(color, "color-change");
   	
 	}
@@ -55,7 +55,6 @@ $(function() {
  
 	$("#on").click(function() {
 		console.log("on");
-		power = true;
 		$.get('/power/on');
 		
 	});
