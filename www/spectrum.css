@@ -363,8 +363,8 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 
 /* Replacer (the little preview div that shows up instead of the <input>) */
 .sp-replacer {
-    height: 90px;
-    width: 100px;
+    height: 96px;
+    width: 110px;
     margin:0;
     overflow:hidden;
     cursor:pointer;

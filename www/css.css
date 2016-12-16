@@ -1,36 +1,58 @@
+@import url(http://fonts.googleapis.com/css?family=Holtwood+One+SC);
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+h1,h2 {
+  font-family: 'Holtwood One SC', serif;
+  color:white;
+  text-shadow: 3px 3px 0px #262626;
+
+}
+
 body {
-	background-color: #000;
+  background: #111;
 }
 
-.title {
-	text-align: center;
-	color: white;
-	font-family: verdana;
+.screen {
+  width: 600px;
+  height: 380px;
+  border:10px solid rgb(80,80,80);
+  background: #333;
+  padding: 10px;
+  margin: 0px auto;
+  border-radius:10px 10px 0 0;
 }
 
-.text {
-	text-align: center;
-	color: white;
-	font-family: verdana;
-	padding-bottom: 20px;
+.body {
+  width: 720px;
+  height: 20px;
+  background: rgb(200,200,200);
+  margin: 0px auto;
+  border-radius: 0px 0px 13px 13px;
+  position: relative;
+}
+
+.body:before {
+  content:"";
+  position: absolute;
+  right: 325px;
+  height: 8px;
+  width: 70px;
+  background: rgba(0,0,0,.2);
+  border-radius: 0 0 5px 5px;
 }
 
 .middle {
 	text-align: center;
 }
 
-.colorbox {
-	padding: 20px;
-	background-color: #333;
-	height: 340px;
-	width: 400px;
-	margin: 100 auto;
-}
-
 .toggle {
     margin:4px;
     background-color:#EFEFEF;
-    border-radius:4px;
+    border-radius:0;
     border:1px solid #D0D0D0;
     overflow:auto;
 	display:inline-block;
@@ -39,7 +61,7 @@ body {
 
 .toggle label {
     float:left;
-    width:2.0em;
+    width:2.2em;
 }
 
 .toggle label span {
