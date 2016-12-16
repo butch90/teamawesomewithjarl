@@ -1,33 +1,39 @@
 var express = require('express');
 var app = express();
-// var five = require('johnny-five');
-// var board = new five.Board();
+var five = require('johnny-five');
+var board = new five.Board();
 var rgb;
 var lastColor = "ff0000";
+var intensity;
+var power;
+function setPower(power) {
 
-function setPower(action) {
-
-	if(action === 'on') {
-		rgb.on();
-		power = 'on';
-
+	if(power === 'off') {
+		rgb[power]();
 	}
-	else if(action === 'off') {
-		rgb.off();
-		power = 'off';
+	else if (power === 'intensity'){
+		rgb.intensity(intensity);
+	}
+	else {
+		
+		rgb[power]();
 	}
 }
 function server() {
 	app.use('/', express.static('www'));
 
 	app.get('/power/:status', (req, res) => {
+		 var power = req.params.status;
 		if(req.params.status === 'on') {
 			res.json('on');
-			setPower('on');
+			power = 'on';
+			setPower(power);
 		}
 		else {
 			res.json('off');
-			setPower('off');
+			power = 'off';
+			setPower(power);
+
 		}
 	})
 	
@@ -40,9 +46,9 @@ function server() {
 	  	return;
 		} else {
 
+			intensity = data;
 			if(power === 'on') {
-
-				rgb.intensity(data);
+				setPower('intensity');
 			}
 	  		res.json({status:true});
 	  	return;
@@ -57,7 +63,6 @@ function server() {
 	});
 
 }
-server();
 
 board.on("ready", function() {
 	rgb = new five.Led.RGB({
@@ -74,7 +79,7 @@ board.on("ready", function() {
 	rgb.on();
 	rgb.color(lastColor);
 
-	server()
+	server();
 });
 
 function fromOneColorToAnother(hex1,hex2){

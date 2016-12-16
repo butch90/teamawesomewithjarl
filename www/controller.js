@@ -50,7 +50,6 @@ $(function() {
  
 	$("#on").click(function() {
 		console.log("on");
-		power = true;
 		$.get('/power/on');
 		
 	});
