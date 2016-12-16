@@ -7,6 +7,7 @@ var lastColor = "ff0000";
 var intensity, power, rainbow;
 
 function setPower(power) {
+		rgb.stop();
 		rgb[power]();
 }
 
@@ -21,6 +22,9 @@ function server() {
 			power = status;
 			res.json(power);
 			setPower(power);
+			if(req.params.amount){
+				rgb.blink(req.params.amount);
+			}
 		}
 		else {
 	  		res.json({status:true});
@@ -30,6 +34,7 @@ function server() {
 	})
 	
 	app.get('/color/:id?', (req, res) => {
+		rgb.stop();
 		clearInterval(rainbow);
 		var data = req.params.id;
 		if(data.length > 3) {
@@ -57,6 +62,7 @@ function server() {
 	})
 
 	app.get('/rainbow',(req,res)=>{
+		rgb.stop();
 		var red = 255, green = 0, blue = 0,
 			s = 0;
 		clearInterval(rainbow);
@@ -99,10 +105,15 @@ function server() {
 	});
 
 	app.get('/lastcolor', (req, res) => {
-		res.json({color: lastColor});
+		var pastColor = lastColor;
+		if(power == "off"){
+			pastColor = "000000";
+		}
+		res.json({color: pastColor});
 	})
 
 	app.get('/random',(req,res)=>{
+		rgb.stop();
 		clearInterval(rainbow);
 		var letters = '0123456789ABCDEF';
 		var color = "";
