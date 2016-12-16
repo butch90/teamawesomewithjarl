@@ -4,10 +4,12 @@ var five = require('johnny-five');
 var board = new five.Board();
 var rgb;
 var lastColor = "ff0000";
-var intensity, power, rainbow;
+var intensity, power = "on", rainbow;
 
 function setPower(power) {
+		console.log(power);
 		rgb[power]();
+		
 }
 
 function server() {
@@ -23,7 +25,7 @@ function server() {
 			setPower(power);
 		}
 		else {
-	  		res.json({status:true});
+	  	res.json({status:true});
 			rgb[status](req.params.amount);
 			setPower(power);
 		}
@@ -41,18 +43,6 @@ function server() {
 			rgb.intensity(data);
 	  	res.json({status:true});
 	  	return;
-		}
-	})
-	app.get('/power/:status', (req, res) => {
-		if(req.params.status === 'on') {
-			rgb.on();
-			console.log('on');
-			res.json('on')
-		}
-		else {
-			rgb.off();
-			console.log('off');
-			res.json('off');
 		}
 	})
 
@@ -99,7 +89,12 @@ function server() {
 	});
 
 	app.get('/lastcolor', (req, res) => {
-		res.json({color: lastColor});
+		var pastColor = lastColor;
+		if(power == "off") {
+			
+			pastColor = "000000";
+		} 
+		res.json({color: pastColor});
 	})
 
 	app.get('/random',(req,res)=>{
