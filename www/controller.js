@@ -18,7 +18,8 @@ $(function() {
 		color = color.substring(1);
 		$.get('/color/' + color);
 		//console.log(color, "color-change");
-		$(".screen.rainbow").css("background", lastColor);
+		$(".screen").css("background", lastColor);
+		$(".rainbow").css("color", lastColor);
   	
 	}
 	
