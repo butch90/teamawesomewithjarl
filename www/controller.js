@@ -48,6 +48,11 @@ $(function() {
 	$("#rainbow").click(function() {
 		$.get('/rainbow');
 		
+	});
+
+	$("#random").click(function() {
+		$.get('/random');
+		
 	});   
  
 	$("#on").click(function() {

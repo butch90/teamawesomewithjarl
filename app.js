@@ -92,8 +92,21 @@ function server() {
 			b = ""+b.join("");
 
 			rgb.color(b);
+			lastColor = b;
 		}, 1);
 
+		res.json({status:true});
+	});
+
+	app.get('/random',(req,res)=>{
+		clearInterval(rainbow);
+		var letters = '0123456789ABCDEF';
+		var color = "";
+		for (var i = 0; i < 6; i++ ) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		console.log(color);
+      	fromOneColorToAnother(lastColor,color);
 		res.json({status:true});
 	});
 
