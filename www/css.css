@@ -62,8 +62,6 @@ body {
 	text-align: center;
 }
 
-
-
 .toggle {
   margin:2px;
   background-color:#EFEFEF;
@@ -101,33 +99,6 @@ body {
 	color: white;
 }
 
-/*.rainbow {
-	color: #fff;
-}
-
-#rainbow {
-	margin-right: 8px;
-}
-
-.butt {
-	padding: 6px;
-  background-color:#EFEFEF;
-  border-radius:0;
-  border:0;
-  overflow:auto;
-	display:inline-block;
-	text-align: center;
-}
-}
-
-.butt:hover, .butt.hover {
-	background-color: #fff;
-}
-
-.butt:active, .butt.active {
-	background-color: #d0d3d6;
-}
-*/
 small {
   color: black;
 }
