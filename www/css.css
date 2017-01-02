@@ -137,3 +137,7 @@ small {
   width: 80px;
   margin-bottom: 8px;
 }
+
+.right {
+  float: right;
+}
