@@ -65,15 +65,16 @@ $(function() {
     });
 
 
-		$(".blink").slider({
+	$(".blink").slider({
 		range: "min",
-      value: 0,
-      min: 0,
-      max: 1000,
-      slide: function( event, ui ) {
-        console.log(ui.value);
-      }
-    });
+		value: 0,
+		min: 0,
+		max: 1000,
+		slide: function( event, ui ) {
+			console.log(ui.value);
+			$.get('/power/on/' + ui.value);
+		}
+	});
 
 	$("button#rainbow").button();
 	$("button#random").button();
@@ -102,9 +103,5 @@ $(function() {
 		power = false;
 		$.get('/power/off');
 		/*$(".screen").css("background", lastColor);*/	
-	});
-
-	$("#blink").change(function() {
-		$.get('/power/on/' + $(this).val());		
 	});
 });
