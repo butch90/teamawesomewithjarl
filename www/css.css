@@ -101,7 +101,6 @@ body {
 	color: white;
 }
 
-
 /*.rainbow {
 	color: #fff;
 }
@@ -128,11 +127,13 @@ body {
 .butt:active, .butt.active {
 	background-color: #d0d3d6;
 }
-<<<<<<< HEAD
 */
-=======
-
 small {
-  color: white;
+  color: black;
 }
->>>>>>> 28795a229e3c1fbbc2765673d840b0fa0cb4bcfd
+
+.bg {
+  background-color: white;
+  width: 80px;
+  margin-bottom: 8px;
+}
