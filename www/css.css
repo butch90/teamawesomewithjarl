@@ -65,30 +65,30 @@ body {
 
 
 .toggle {
-    margin:4px;
-    background-color:#EFEFEF;
-    border-radius:0;
-    border:0;
-    overflow:auto;
-	display:inline-block;
-	text-align: center;
+  margin:2px;
+  background-color:#EFEFEF;
+  border-radius:0;
+  border:0;
+  overflow:auto;
+  display:inline-block;
+  text-align: center;
 }
 
 .toggle label {
-    float:left;
-    width:2.2em;
+  float:left;
+  width:2.2em;
 }
 
 .toggle label span {
-    text-align:center;
-    padding:3px 0px;
-    display:block;
-    cursor: pointer;
+  text-align:center;
+  padding:3px 0px;
+  display:block;
+  cursor: pointer;
 }
 
 .toggle label input {
-    position:absolute;
-    top:-20px;
+  position:absolute;
+  top:-20px;
 }
 
 #on:checked + span {
@@ -140,4 +140,5 @@ small {
 
 .right {
   float: right;
+  margin-top: 8px;
 }
